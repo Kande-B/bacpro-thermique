@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Éducatif : Rayonnement Thermique et Effet de Serre</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #400080, #800080, #ff0000, #ffff00, #00ff00);
+            color: #333;
+            line-height: 1.6;
+            background-size: 200% 200%;
+            animation: spectrumShift 15s ease infinite;
+        }
+        @keyframes spectrumShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(26, 60, 109, 0.8);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid #ff4500;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff4500;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        nav {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px dashed #00ff00;
+        }
+        nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #1a3c6d;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background 0.3s, color 0.3s;
+            background: linear-gradient(45deg, #400080, #ff4500);
+            color: white;
+        }
+        nav a:hover {
+            background: linear-gradient(45deg, #ff4500, #00ff00);
+            color: #1a3c6d;
+        }
+        section {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+            border: 1px solid #ff4500;
+            position: relative;
+            overflow: hidden;
+        }
+        section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, transparent 70%);
+            animation: wave 10s linear infinite;
+            z-index: 0;
+        }
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        section:hover {
+            transform: translateY(-5px);
+        }
+        section > * {
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            color: #1a3c6d;
+            font-size: 1.8em;
+            border-bottom: 2px solid #ff4500;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        h3 {
+            color: #ff4500;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: square;
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        iframe {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #ff4500;
+            border-radius: 8px;
+            max-width: 100%;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+        a[target="_blank"] {
+            color: #00ff00;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a[target="_blank"]:hover {
+            color: #ff4500;
+            text-decoration: underline;
+        }
+        .quiz {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ff4500;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.2);
+        }
+        .quiz label {
+            display: block;
+            margin: 10px 0;
+        }
+        .quiz button {
+            background: linear-gradient(45deg, #400080, #ff4500);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .quiz button:hover {
+            background: linear-gradient(45deg, #ff4500, #00ff00);
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .checklist {
+            background: rgba(240, 248, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #00ff00;
+            margin-top: 30px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+        .checklist label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        .summary {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-left: 4px solid #ff4500;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(26, 60, 109, 0.8);
+            color: white;
+            margin-top: 40px;
+            border-top: 2px solid #ff4500;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            nav a { display: inline-block; margin: 10px; }
+            section { margin: 20px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rayonnement Thermique et Effet de Serre</h1>
+        <p>Un site éducatif conforme au programme Bac Pro avec récapitulatifs, quizzes et exploration du spectre lumineux.</p>
+    </header>
+    
+    <nav>
+        <a href="#section1">Chauffage par Rayonnement</a>
+        <a href="#section2">Caméra Thermique</a>
+        <a href="#section3">Absorption Infrarouge</a>
+        <a href="#section4">Effet de Serre</a>
+    </nav>
+    
+    <section id="section1">
+        <h2>Montrer expérimentalement qu’un objet peut se réchauffer sous l’effet d’un rayonnement</h2>
+        <p>Conformément au programme, cette expérience montre comment un objet absorbe le rayonnement (lampes IR ou soleil) et augmente sa température. Utilisez une plaque métallique sombre pour maximiser l'absorption.</p>
+        <h3>Étapes de l'expérience :</h3>
+        <ul>
+            <li>Mesurez la température initiale avec un thermomètre.</li>
+            <li>Exposez l'objet au rayonnement pendant 5 à 10 minutes.</li>
+            <li>Mesurez la température finale et analysez l'augmentation.</li>
+            <li>Comparez avec un objet clair pour observer la variabilité.</li>
+        </ul>
+        <p>Vidéo illustrant les transferts thermiques :</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/XYmgd7N0DBM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <h3>Récapitulatif du cours</h3>
+        <div class="summary">
+            Le rayonnement thermique est une forme de transfert d'énergie par ondes électromagnétiques. Tout objet émet un rayonnement dont l'intensité dépend de sa température (loi de Stefan-Boltzmann : E ∝ T⁴). Les objets sombres absorbent mieux le rayonnement infrarouge (IR) que les objets clairs, ce qui les réchauffe plus rapidement. Cette expérience permet de mesurer cette absorption et de comprendre les variations thermiques.
+        </div>
+        
+        <h3>Quiz Progressif : Testez vos connaissances</h3>
+        <p>Questions progressives : faciles, moyennes, difficiles.</p>
+        <div class="quiz">
+            <form id="quiz1">
+                <p>1. (Facile) Que devient la température d’un objet exposé à un rayonnement ?</p>
+                <label><input type="radio" name="q1" value="a"> Elle augmente</label>
+                <label><input type="radio" name="q1" value="b"> Elle diminue</label>
+                <label><input type="radio" name="q1" value="c"> Elle reste la même</label>
+                
+                <p>2. (Facile) Quel outil mesure la température dans l'expérience ?</p>
+                <label><input type="radio" name="q2" value="a"> Un microscope</label>
+                <label><input type="radio" name="q2" value="b"> Un thermomètre</label>
+                <label><input type="radio" name="q2" value="c"> Une balance</label>
+                
+                <p>3. (Moyen) Pourquoi un objet sombre chauffe-t-il plus qu'un objet clair ?</p>
+                <label><input type="radio" name="q3" value="a"> Il réfléchit mieux le rayonnement</label>
+                <label><input type="radio" name="q3" value="b"> Il absorbe mieux le rayonnement</label>
+                <label><input type="radio" name="q3" value="c"> Il émet de la lumière</label>
+                
+                <p>4. (Moyen) Quelle est la durée typique d'exposition dans l'expérience ?</p>
+                <label><input type="radio" name="q4" value="a"> 1 minute</label>
+                <label><input type="radio" name="q4" value="b"> 5 à 10 minutes</label>
+                <label><input type="radio" name="q4" value="c"> 1 heure</label>
+                
+                <p>5. (Difficile) Expliquez comment cette expérience illustre le transfert thermique par rayonnement en lien avec la loi de Stefan-Boltzmann (réponse ouverte).</p>
+                <textarea name="q5" rows="3" placeholder="Votre réponse..."></textarea>
+                
+                <button type="button" onclick="checkQuiz1()">Soumettre</button>
+            </form>
+            <div id="result1" class="result"></div>
+        </div>
+        
+        <div class="checklist">
+            <h3>Auto-évaluation des compétences</h3>
+            <p>Cochez les compétences que vous jugez acquises :</p>
+            <label><input type="checkbox"> Montrer expérimentalement qu’un objet peut se réchauffer sous l’effet d’un rayonnement.</label>
+            <label><input type="checkbox"> Savoir que les objets émettent un rayonnement thermique dont les caractéristiques dépendent de la température.</label>
+            <label><input type="checkbox"> Exploiter des images enregistrées par une caméra thermique.</label>
+            <label><input type="checkbox"> Comparer l'absorption du rayonnement par différents matériaux.</label>
+        </div>
+    </section>
+    
+    <section id="section2">
+        <h2>Exploiter des images enregistrées par une caméra thermique</h2>
+        <p>Selon le programme, exploitez des images thermiques pour analyser les transferts thermiques et identifier les zones chaudes/froides (rouges/bleues). Utilisez une caméra pour détecter les variations de température dans des expériences ou bâtiments.</p>
+        <p>Exemple : Comparez la chaleur absorbée par différents matériaux.</p>
+        <p>Vidéo d’expériences avec une caméra thermique :</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/gdxLNMCieBs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <h3>Récapitulatif du cours</h3>
+        <div class="summary">
+            Une caméra thermique détecte le rayonnement infrarouge émis par les objets, convertissant ces émissions en images colorées où le rouge indique les zones chaudes et le bleu les zones froides. Elle permet d’analyser les transferts thermiques, d’identifier des pertes de chaleur (ex. dans les bâtiments) et de comparer l’efficacité thermique des matériaux en fonction de leur émission ou absorption.
+        </div>
+        
+        <h3>Quiz Progressif : Testez vos connaissances</h3>
+        <p>Questions progressives : faciles, moyennes, difficiles.</p>
+        <div class="quiz">
+            <form id="quiz2">
+                <p>1. (Facile) Que montre une caméra thermique ?</p>
+                <label><input type="radio" name="q1" value="a"> La lumière visible</label>
+                <label><input type="radio" name="q1" value="b"> Le rayonnement infrarouge</label>
+                <label><input type="radio" name="q1" value="c"> Les sons</label>
+                
+                <p>2. (Facile) Quelle couleur indique une zone chaude sur une image thermique ?</p>
+                <label><input type="radio" name="q2" value="a"> Bleu</label>
+                <label><input type="radio" name="q2" value="b"> Rouge</label>
+                <label><input type="radio" name="q2" value="c"> Vert</label>
+                
+                <p>3. (Moyen) Comment une caméra thermique aide-t-elle à analyser les transferts thermiques ?</p>
+                <label><input type="radio" name="q3" value="a"> En mesurant la masse</label>
+                <label><input type="radio" name="q3" value="b"> En visualisant les variations de température</label>
+                <label><input type="radio" name="q3" value="c"> En comptant les particules</label>
+                
+                <p>4. (Moyen) Dans quel contexte peut-on utiliser une caméra thermique ?</p>
+                <label><input type="radio" name="q4" value="a"> Détecter des fuites thermiques dans un bâtiment</label>
+                <label><input type="radio" name="q4" value="b"> Mesurer la vitesse du vent</label>
+                <label><input type="radio" name="q4" value="c"> Analyser la composition chimique</label>
+                
+                <p>5. (Difficile) Décrivez comment exploiter une image thermique pour identifier une perte de chaleur dans une expérience (réponse ouverte).</p>
+                <textarea name="q5" rows="3" placeholder="Votre réponse..."></textarea>
+                
+                <button type="button" onclick="checkQuiz2()">Soumettre</button>
+            </form>
+            <div id="result2" class="result"></div>
+        </div>
+        
+        <div class="checklist">
+            <h3>Auto-évaluation des compétences</h3>
+            <p>Cochez les compétences que vous jugez acquises :</p>
+            <label><input type="checkbox"> Exploiter des images enregistrées par une caméra thermique.</label>
+            <label><input type="checkbox"> Savoir que les objets émettent un rayonnement thermique visible sur une caméra thermique.</label>
+            <label><input type="checkbox"> Analyser les variations de température pour détecter des pertes thermiques.</label>
+            <label><input type="checkbox"> Comparer la distribution de chaleur dans différents contextes.</label>
+        </div>
+    </section>
+    
+    <section id="section3">
+        <h2>Illustrer expérimentalement l’absorption du rayonnement infrarouge par différents matériaux</h2>
+        <p>Expérience conforme au programme : Testez l’absorption infrarouge avec des matériaux (verre, métal, plastique, tissu) à l’aide d’une lampe IR et d’une caméra thermique. Analysez les différences d’absorption et leurs impacts sur le réchauffement.</p>
+        <h3>Étapes :</h3>
+        <ul>
+            <li>Exposez les matériaux à une source IR.</li>
+            <li>Utilisez une caméra thermique pour mesurer les températures.</li>
+            <li>Comparez les résultats pour identifier les matériaux absorbants.</li>
+        </ul>
+        <p>Vidéo sur l’absorption infrarouge :</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/620157264613" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <h3>Récapitulatif du cours</h3>
+        <div class="summary">
+            L’absorption du rayonnement infrarouge dépend des propriétés des matériaux : les surfaces sombres absorbent plus que les surfaces claires. Cette absorption convertit l’énergie IR en chaleur, observable avec une caméra thermique. Les différences d’absorption influencent le réchauffement, un principe clé pour comprendre les transferts thermiques et leur variabilité selon les matériaux.
+        </div>
+        
+        <h3>Quiz Progressif : Testez vos connaissances</h3>
+        <p>Questions progressives : faciles, moyennes, difficiles.</p>
+        <div class="quiz">
+            <form id="quiz3">
+                <p>1. (Facile) Quel outil mesure l’absorption infrarouge ?</p>
+                <label><input type="radio" name="q1" value="a"> Un thermomètre classique</label>
+                <label><input type="radio" name="q1" value="b"> Une caméra thermique</label>
+                <label><input type="radio" name="q1" value="c"> Une loupe</label>
+                
+                <p>2. (Facile) Tous les matériaux absorbent-ils le rayonnement infrarouge de la même manière ?</p>
+                <label><input type="radio" name="q2" value="a"> Oui</label>
+                <label><input type="radio" name="q2" value="b"> Non</label>
+                <label><input type="radio" name="q2" value="c"> Seulement les métaux</label>
+                
+                <p>3. (Moyen) Quel matériau absorbe généralement plus le rayonnement IR ?</p>
+                <label><input type="radio" name="q3" value="a"> Le verre transparent</label>
+                <label><input type="radio" name="q3" value="b"> Le métal sombre</label>
+                <label><input type="radio" name="q3" value="c"> Le plastique blanc</label>
+                
+                <p>4. (Moyen) Quelle étape suit l'exposition aux IR dans l'expérience ?</p>
+                <label><input type="radio" name="q4" value="a"> Mesurer les températures avec une caméra thermique</label>
+                <label><input type="radio" name="q4" value="b"> Peser les matériaux</label>
+                <label><input type="radio" name="q4" value="c"> Les peindre</label>
+                
+                <p>5. (Difficile) Expliquez comment les différences d'absorption influencent le réchauffement d'un objet (réponse ouverte).</p>
+                <textarea name="q5" rows="3" placeholder="Votre réponse..."></textarea>
+                
+                <button type="button" onclick="checkQuiz3()">Soumettre</button>
+            </form>
+            <div id="result3" class="result"></div>
+        </div>
+        
+        <div class="checklist">
+            <h3>Auto-évaluation des compétences</h3>
+            <p>Cochez les compétences que vous jugez acquises :</p>
+            <label><input type="checkbox"> Illustrer expérimentalement l’absorption du rayonnement infrarouge par différents matériaux.</label>
+            <label><input type="checkbox"> Savoir que l'absorption dépend des caractéristiques des matériaux.</label>
+            <label><input type="checkbox"> Comparer les impacts sur le réchauffement.</label>
+            <label><input type="checkbox"> Utiliser une caméra thermique pour analyser les différences.</label>
+        </div>
+    </section>
+    
+    <section id="section4">
+        <h2>Expliquer le principe de l’effet de serre</h2>
+        <p>Selon le programme, expliquez l’effet de serre : les gaz (CO2, CH4) absorbent le rayonnement infrarouge émis par la Terre, piégeant la chaleur. Utilisez une ressource documentaire pour illustrer son rôle naturel et son amplification par les GES.</p>
+        <p>Animation explicative :</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/99_x2nYfvKY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>Documentaire "C’est pas sorcier" :</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/KZbcAyIQzkI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <h3>Récapitulatif du cours</h3>
+        <div class="summary">
+            L’effet de serre est un phénomène naturel où les gaz à effet de serre (GES) comme le CO2 et le CH4 absorbent le rayonnement infrarouge émis par la Terre, retenant la chaleur et maintenant une température habitable. Les activités humaines (combustion, déforestation) augmentent la concentration de GES, amplifiant cet effet et contribuant au réchauffement climatique.
+        </div>
+        
+        <h3>Quiz Progressif : Testez vos connaissances</h3>
+        <p>Questions progressives : faciles, moyennes, difficiles.</p>
+        <div class="quiz">
+            <form id="quiz4">
+                <p>1. (Facile) Quel gaz joue un rôle clé dans l’effet de serre ?</p>
+                <label><input type="radio" name="q1" value="a"> Oxygène (O2)</label>
+                <label><input type="radio" name="q1" value="b"> Dioxyde de carbone (CO2)</label>
+                <label><input type="radio" name="q1" value="c"> Hélium</label>
+                
+                <p>2. (Facile) Que provoque une augmentation des GES ?</p>
+                <label><input type="radio" name="q2" value="a"> Un refroidissement</label>
+                <label><input type="radio" name="q2" value="b"> Un réchauffement</label>
+                <label><input type="radio" name="q2" value="c"> Aucun changement</label>
+                
+                <p>3. (Moyen) Quel est le rôle naturel de l'effet de serre ?</p>
+                <label><input type="radio" name="q3" value="a"> Refroidir la Terre</label>
+                <label><input type="radio" name="q3" value="b"> Maintenir une température habitable</label>
+                <label><input type="radio" name="q3" value="c"> Bloquer toute la lumière solaire</label>
+                
+                <p>4. (Moyen) Quel autre gaz est mentionné comme GES ?</p>
+                <label><input type="radio" name="q4" value="a"> Azote</label>
+                <label><input type="radio" name="q4" value="b"> Méthane (CH4)</label>
+                <label><input type="radio" name="q4" value="c"> Argon</label>
+                
+                <p>5. (Difficile) Décrivez comment les activités humaines amplifient l'effet de serre en s'appuyant sur une ressource documentaire (réponse ouverte).</p>
+                <textarea name="q5" rows="3" placeholder="Votre réponse..."></textarea>
+                
+                <button type="button" onclick="checkQuiz4()">Soumettre</button>
+            </form>
+            <div id="result4" class="result"></div>
+        </div>
+        
+        <div class="checklist">
+            <h3>Auto-évaluation des compétences</h3>
+            <p>Cochez les compétences que vous jugez acquises :</p>
+            <label><input type="checkbox"> Expliquer le principe de l’effet de serre en s’appuyant sur une ressource documentaire.</label>
+            <label><input type="checkbox"> Connaître les gaz à effet de serre (GES) comme le CO2 et le CH4.</label>
+            <label><input type="checkbox"> Comprendre l'amplification de l'effet de serre par les activités humaines.</label>
+            <label><input type="checkbox"> Savoir que l’atmosphère absorbe le rayonnement infrarouge émis par la Terre.</label>
+        </div>
+    </section>
+    
+    <footer>
+        <p>Site créé pour les élèves de Bac Pro. Conforme au programme officiel 2025. Sources : YouTube et ressources éducatives.</p>
+    </footer>
+
+    <script>
+        function checkQuiz1() {
+            const form = document.getElementById('quiz1');
+            const result = document.getElementById('result1');
+            let score = 0;
+            let feedback = '';
+            
+            const q1 = form.q1.value;
+            if (q1 === 'a') { score += 2; feedback += '<p style="color:green;">Question 1 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 1 : Incorrect. La bonne réponse est : Elle augmente, car l\'objet absorbe l\'énergie du rayonnement. (0 point)</p>'; }
+            
+            const q2 = form.q2.value;
+            if (q2 === 'b') { score += 2; feedback += '<p style="color:green;">Question 2 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 2 : Incorrect. La bonne réponse est : Un thermomètre. (0 point)</p>'; }
+            
+            const q3 = form.q3.value;
+            if (q3 === 'b') { score += 3; feedback += '<p style="color:green;">Question 3 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 3 : Incorrect. La bonne réponse est : Il absorbe mieux le rayonnement. (0 point)</p>'; }
+            
+            const q4 = form.q4.value;
+            if (q4 === 'b') { score += 3; feedback += '<p style="color:green;">Question 4 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 4 : Incorrect. La bonne réponse est : 5 à 10 minutes. (0 point)</p>'; }
+            
+            const q5 = form.q5.value.trim().toLowerCase();
+            if (q5.includes('stefan-boltzmann') || q5.includes('rayonnement') || q5.includes('température')) {
+                score += 5; feedback += '<p style="color:green;">Question 5 : Bonne réponse ! (+5 points)</p>';
+            } else {
+                feedback += '<p style="color:red;">Question 5 : À améliorer. La loi de Stefan-Boltzmann relie le rayonnement à la température à la puissance 4. (0 point)</p>';
+            }
+            
+            feedback += `<p style="color:#ff4500;">Score total : ${score}/15</p>`;
+            result.innerHTML = feedback;
+        }
+
+        function checkQuiz2() {
+            const form = document.getElementById('quiz2');
+            const result = document.getElementById('result2');
+            let score = 0;
+            let feedback = '';
+            
+            const q1 = form.q1.value;
+            if (q1 === 'b') { score += 2; feedback += '<p style="color:green;">Question 1 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 1 : Incorrect. La bonne réponse est : Le rayonnement infrarouge. (0 point)</p>'; }
+            
+            const q2 = form.q2.value;
+            if (q2 === 'b') { score += 2; feedback += '<p style="color:green;">Question 2 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 2 : Incorrect. La bonne réponse est : Rouge. (0 point)</p>'; }
+            
+            const q3 = form.q3.value;
+            if (q3 === 'b') { score += 3; feedback += '<p style="color:green;">Question 3 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 3 : Incorrect. La bonne réponse est : En visualisant les variations de température. (0 point)</p>'; }
+            
+            const q4 = form.q4.value;
+            if (q4 === 'a') { score += 3; feedback += '<p style="color:green;">Question 4 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 4 : Incorrect. La bonne réponse est : Détecter des fuites thermiques dans un bâtiment. (0 point)</p>'; }
+            
+            const q5 = form.q5.value.trim().toLowerCase();
+            if (q5.includes('perte') || q5.includes('chaleur') || q5.includes('zones froides')) {
+                score += 5; feedback += '<p style="color:green;">Question 5 : Bonne réponse ! (+5 points)</p>';
+            } else {
+                feedback += '<p style="color:red;">Question 5 : À améliorer. Recherchez les zones froides (bleues) pour détecter les pertes. (0 point)</p>';
+            }
+            
+            feedback += `<p style="color:#ff4500;">Score total : ${score}/15</p>`;
+            result.innerHTML = feedback;
+        }
+
+        function checkQuiz3() {
+            const form = document.getElementById('quiz3');
+            const result = document.getElementById('result3');
+            let score = 0;
+            let feedback = '';
+            
+            const q1 = form.q1.value;
+            if (q1 === 'b') { score += 2; feedback += '<p style="color:green;">Question 1 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 1 : Incorrect. La bonne réponse est : Une caméra thermique. (0 point)</p>'; }
+            
+            const q2 = form.q2.value;
+            if (q2 === 'b') { score += 2; feedback += '<p style="color:green;">Question 2 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 2 : Incorrect. La bonne réponse est : Non. (0 point)</p>'; }
+            
+            const q3 = form.q3.value;
+            if (q3 === 'b') { score += 3; feedback += '<p style="color:green;">Question 3 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 3 : Incorrect. La bonne réponse est : Le métal sombre. (0 point)</p>'; }
+            
+            const q4 = form.q4.value;
+            if (q4 === 'a') { score += 3; feedback += '<p style="color:green;">Question 4 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 4 : Incorrect. La bonne réponse est : Mesurer les températures avec une caméra thermique. (0 point)</p>'; }
+            
+            const q5 = form.q5.value.trim().toLowerCase();
+            if (q5.includes('absorption') || q5.includes('réchauffement') || q5.includes('matériaux')) {
+                score += 5; feedback += '<p style="color:green;">Question 5 : Bonne réponse ! (+5 points)</p>';
+            } else {
+                feedback += '<p style="color:red;">Question 5 : À améliorer. Les matériaux absorbants chauffent plus en convertissant le rayonnement en chaleur. (0 point)</p>';
+            }
+            
+            feedback += `<p style="color:#ff4500;">Score total : ${score}/15</p>`;
+            result.innerHTML = feedback;
+        }
+
+        function checkQuiz4() {
+            const form = document.getElementById('quiz4');
+            const result = document.getElementById('result4');
+            let score = 0;
+            let feedback = '';
+            
+            const q1 = form.q1.value;
+            if (q1 === 'b') { score += 2; feedback += '<p style="color:green;">Question 1 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 1 : Incorrect. La bonne réponse est : Dioxyde de carbone (CO2). (0 point)</p>'; }
+            
+            const q2 = form.q2.value;
+            if (q2 === 'b') { score += 2; feedback += '<p style="color:green;">Question 2 : Correct ! (+2 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 2 : Incorrect. La bonne réponse est : Un réchauffement. (0 point)</p>'; }
+            
+            const q3 = form.q3.value;
+            if (q3 === 'b') { score += 3; feedback += '<p style="color:green;">Question 3 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 3 : Incorrect. La bonne réponse est : Maintenir une température habitable. (0 point)</p>'; }
+            
+            const q4 = form.q4.value;
+            if (q4 === 'b') { score += 3; feedback += '<p style="color:green;">Question 4 : Correct ! (+3 points)</p>'; }
+            else { feedback += '<p style="color:red;">Question 4 : Incorrect. La bonne réponse est : Méthane (CH4). (0 point)</p>'; }
+            
+            const q5 = form.q5.value.trim().toLowerCase();
+            if (q5.includes('activités humaines') || q5.includes('amplifient') || q5.includes('ges')) {
+                score += 5; feedback += '<p style="color:green;">Question 5 : Bonne réponse ! (+5 points)</p>';
+            } else {
+                feedback += '<p style="color:red;">Question 5 : À améliorer. Les activités comme la combustion amplifient en augmentant les concentrations de GES. (0 point)</p>';
+            }
+            
+            feedback += `<p style="color:#ff4500;">Score total : ${score}/15</p>`;
+            result.innerHTML = feedback;
+        }
+    </script>
+</body>
+</html>
